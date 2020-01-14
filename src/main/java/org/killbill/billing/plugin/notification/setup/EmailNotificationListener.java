@@ -304,7 +304,11 @@ public class EmailNotificationListener implements OSGIKillbillEventDispatcher.OS
             }
         });
 
-        emailSender.sendPlainTextEmail(ImmutableList.of(account.getEmail()), ImmutableList.copyOf(cc), emailContent.getSubject(), emailContent.getBody(), getConfiguration(context).getSmtp());
+        if (emailContent.getBody().startsWith("<")) {
+            emailSender.sendHTMLEmail(ImmutableList.of(account.getEmail()), ImmutableList.copyOf(cc), emailContent.getSubject(), emailContent.getBody(), getConfiguration(context).getSmtp());
+        } else {
+            emailSender.sendPlainTextEmail(ImmutableList.of(account.getEmail()), ImmutableList.copyOf(cc), emailContent.getSubject(), emailContent.getBody(), getConfiguration(context).getSmtp());
+        }
     }
 
     private static final class EmailNotificationContext implements TenantContext {

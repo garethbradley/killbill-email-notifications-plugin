@@ -111,6 +111,15 @@ public class EmailSender {
     }
 
     public void sendHTMLEmail(final List<String> to, final List<String> cc, final String subject, final String htmlBody, final SmtpProperties smtp) throws EmailException, EmailNotificationException {
+        // final HtmlEmail email = new HtmlEmail();
+        // email.setHtmlMsg(htmlBody);
+        // sendEmail(to, cc, subject, email, precheckSmtp(smtp));
+
+        logService.log(LogService.LOG_INFO, String.format("Sending HTML email to = %s, cc= %s, subject = %s body = [%s]",
+                to,
+                JOINER_ON_COMMA.join(cc),
+                subject,
+                body));
         final HtmlEmail email = new HtmlEmail();
         email.setHtmlMsg(htmlBody);
         sendEmail(to, cc, subject, email, precheckSmtp(smtp));
