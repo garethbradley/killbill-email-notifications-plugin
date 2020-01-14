@@ -119,7 +119,7 @@ public class EmailSender {
                 to,
                 JOINER_ON_COMMA.join(cc),
                 subject,
-                body));
+                htmlBody));
         final HtmlEmail email = new HtmlEmail();
         email.setHtmlMsg(htmlBody);
         sendEmail(to, cc, subject, email, precheckSmtp(smtp));
