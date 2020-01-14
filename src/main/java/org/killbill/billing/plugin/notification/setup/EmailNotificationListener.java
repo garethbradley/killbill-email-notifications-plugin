@@ -305,8 +305,14 @@ public class EmailNotificationListener implements OSGIKillbillEventDispatcher.OS
         });
 
         if (emailContent.getBody().startsWith("<")) {
+            logService.log(LogService.LOG_INFO, String.format("sendEmail - Preparing to send email. Body starts with \"%s\" and will be classed as an HTML email",
+                emailContent.getBody().substring(0,3)
+                ));
             emailSender.sendHTMLEmail(ImmutableList.of(account.getEmail()), ImmutableList.copyOf(cc), emailContent.getSubject(), emailContent.getBody(), getConfiguration(context).getSmtp());
         } else {
+            logService.log(LogService.LOG_INFO, String.format("sendEmail - Preparing to send email. Body starts with \"%s\" and will be classed as a Plain text email",
+                emailContent.getBody().substring(0,3)
+                ));
             emailSender.sendPlainTextEmail(ImmutableList.of(account.getEmail()), ImmutableList.copyOf(cc), emailContent.getSubject(), emailContent.getBody(), getConfiguration(context).getSmtp());
         }
     }
