@@ -29,3 +29,6 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Release
       uses: yakuhzi/action-release@v1.2.0
+      with:
+        # File to upload to the release
+        file: /home/runner/work/killbill-email-notifications-plugin/killbill-email-notifications-plugin/target/killbill-email-notifications-plugin-0.5.2-SNAPSHOT.jar
