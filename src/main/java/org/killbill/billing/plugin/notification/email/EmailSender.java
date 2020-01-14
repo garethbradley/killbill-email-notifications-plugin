@@ -121,6 +121,7 @@ public class EmailSender {
                 subject,
                 htmlBody));
         final HtmlEmail email = new HtmlEmail();
+        email.setCharset("utf-8");
         email.setHtmlMsg(htmlBody);
         sendEmail(to, cc, subject, email, precheckSmtp(smtp));
     }
