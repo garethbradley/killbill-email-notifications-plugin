@@ -28,7 +28,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Release
-      uses: yakuhzi/action-release@v1.2.0
+      uses: JasonEtco/upload-to-release@master
       with:
-        # File to upload to the release
-        file: /home/runner/work/killbill-email-notifications-plugin/killbill-email-notifications-plugin/target/killbill-email-notifications-plugin-0.5.2-SNAPSHOT.jar
+        args: /home/runner/work/killbill-email-notifications-plugin/killbill-email-notifications-plugin/target/killbill-email-notifications-plugin-0.5.2-SNAPSHOT.jar application/jar
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
