@@ -115,11 +115,10 @@ public class EmailSender {
         // email.setHtmlMsg(htmlBody);
         // sendEmail(to, cc, subject, email, precheckSmtp(smtp));
 
-        logService.log(LogService.LOG_INFO, String.format("Sending HTML email to = %s, cc= %s, subject = %s body = [%s]",
+        logService.log(LogService.LOG_INFO, String.format("Sending HTML email to = %s, cc= %s, subject = %s",
                 to,
                 JOINER_ON_COMMA.join(cc),
-                subject,
-                htmlBody));
+                subject));
         final HtmlEmail email = new HtmlEmail();
         email.setCharset("utf-8");
         email.setHtmlMsg(htmlBody);
@@ -127,11 +126,10 @@ public class EmailSender {
     }
 
     public void sendPlainTextEmail(final List<String> to, final List<String> cc, final String subject, final String body, final SmtpProperties smtp) throws IOException, EmailException, EmailNotificationException {
-        logService.log(LogService.LOG_INFO, String.format("Sending email to = %s, cc= %s, subject = %s body = [%s]",
+        logService.log(LogService.LOG_INFO, String.format("Sending email to = %s, cc= %s, subject = %s",
                 to,
                 JOINER_ON_COMMA.join(cc),
-                subject,
-                body));
+                subject));
         final SimpleEmail email = new SimpleEmail();
         email.setCharset("utf-8");
         email.setMsg(body);

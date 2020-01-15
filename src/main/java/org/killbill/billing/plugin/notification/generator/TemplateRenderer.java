@@ -127,7 +127,8 @@ public class TemplateRenderer {
         }
 
         final String body = templateEngine.executeTemplateText(templateText, data);
-        final String subject = text.get(templateType.getSubjectKeyName());
+        final String subject = templateEngine.executeTemplateText(text.get(templateType.getSubjectKeyName()), data);
+
         return new EmailContent(subject, body);
     }
 
