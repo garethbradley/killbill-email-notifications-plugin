@@ -127,14 +127,28 @@ public class TemplateRenderer {
             throw new EmailNotificationException(TEMPLATE_INVALID, accountLocale);
         }
 
+        String body = templateText;
+        String subject = text.get(templateType.getSubjectKeyName());
 
-        Gson gson = new Gson();
-        final String json = gson.toJson(data); 
-        logService.log(LogService.LOG_INFO, String.format("Data available for emails: %s",
-                json));
+        try {
+            Gson gson = new Gson();
+            final String json = gson.toJson(data); 
+            logService.log(LogService.LOG_INFO, String.format("Data available for emails: %s", json));
+        } catch (Exception e) {
+            // ignore
+        }
 
-        final String body = templateEngine.executeTemplateText(templateText, data);
-        final String subject = templateEngine.executeTemplateText(text.get(templateType.getSubjectKeyName()), data);
+        try {
+            body = templateEngine.executeTemplateText(body, data);
+        } catch (Exception e) {
+            body = templateText;
+        }
+
+        try {
+            subject = templateEngine.executeTemplateText(subject, data);
+        } catch (Exception e) {
+            subject = text.get(templateType.getSubjectKeyName());
+        }
 
         return new EmailContent(subject, body);
     }
