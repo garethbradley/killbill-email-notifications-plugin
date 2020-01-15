@@ -38,6 +38,7 @@ import org.killbill.billing.util.callcontext.TenantContext;
 import org.osgi.service.log.LogService;
 
 import javax.annotation.Nullable;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -125,6 +126,12 @@ public class TemplateRenderer {
         if (templateText == null){
             throw new EmailNotificationException(TEMPLATE_INVALID, accountLocale);
         }
+
+
+        Gson gson = new Gson();
+        final String json = gson.toJson(data); 
+        logService.log(LogService.LOG_INFO, String.format("Data available for emails: %s",
+                json));
 
         final String body = templateEngine.executeTemplateText(templateText, data);
         final String subject = templateEngine.executeTemplateText(text.get(templateType.getSubjectKeyName()), data);
